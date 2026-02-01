@@ -1,0 +1,66 @@
+\documentclass[10pt,a4paper,ragged2e,withhyper]{altacv}
+
+% Change the page layout if you need to
+\geometry{left=1.25cm,right=1.25cm,top=1.5cm,bottom=1.5cm,columnsep=1.2cm}
+
+% The paracol package lets you typeset columns of text in parallel
+\usepackage{paracol}
+
+% If using pdflatex:
+\usepackage[default]{lato}
+
+% Change the colours
+\definecolor{VividPurple}{HTML}{3E0097}
+\definecolor{SlateGrey}{HTML}{2E2E2E}
+\definecolor{LightGrey}{HTML}{666666}
+\colorlet{heading}{VividPurple}
+\colorlet{headingrule}{VividPurple}
+\colorlet{accent}{VividPurple}
+\colorlet{emphasis}{SlateGrey}
+\colorlet{body}{LightGrey}
+
+\renewcommand{\cvItemMarker}{{\small\textbullet}}
+\renewcommand{\cvRatingMarker}{\faCircle}
+
+\begin{document}
+\name{ {{NAME}} }
+\tagline{ {{TAGLINE}} }
+
+\personalinfo{%
+  \email{ {{EMAIL}} }
+  \phone{ {{PHONE}} }
+  \linkedin{ {{LINKEDIN}} }
+  \github{ {{GITHUB}} }
+}
+
+\makecvheader
+
+%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
+\AtBeginEnvironment{itemize}{\small}
+
+%% Set the left/right column width ratio to 6:4.
+\columnratio{0.6}
+
+% Start a 2-column paracol.
+\begin{paracol}{2}
+
+\cvsection{Experience}
+{{EXPERIENCE}}
+
+\cvsection{Projects}
+{{PROJECTS}}
+
+\switchcolumn
+
+\cvsection{Skills}
+{{SKILLS}}
+
+\cvsection{Education}
+{{EDUCATION}}
+
+\cvsection{Achievements}
+{{CERTIFICATIONS}}
+
+\end{paracol}
+
+\end{document}
