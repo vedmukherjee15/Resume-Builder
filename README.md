@@ -1,6 +1,6 @@
 # AI Resume Builder
 
-An intelligent resume optimization tool powered by Google Gemini AI. Upload your existing resume, provide a job description, and receive an ATS-optimized PDF tailored to your target role.
+An intelligent resume optimization tool powered by AI. Upload your existing resume, provide a job description, and receive an ATS-optimized PDF tailored to your target role.
 
 ## Features
 
