@@ -1,35 +1,30 @@
 import { NextResponse } from 'next/server';
-import { MODEL_NAME } from '@/lib/ollama';
 
 export async function GET() {
   try {
-    // Check if Ollama is accessible
-    const response = await fetch('http://localhost:11434/api/tags');
+    // Check if Anthropic API key is configured
+    const hasAnthropicKey = !!process.env.ANTHROPIC_API_KEY;
     
-    if (!response.ok) {
-      return NextResponse.json({
-        status: 'error',
-        message: 'Ollama is not responding',
-        ollamaRunning: false,
-      }, { status: 500 });
-    }
+    // Check if Clerk keys are configured
+    const hasClerkPublicKey = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+    const hasClerkSecretKey = !!process.env.CLERK_SECRET_KEY;
 
-    const data = await response.json();
-    const models = data.models || [];
-    const hasModel = models.some((m: any) => m.name === MODEL_NAME);
+    const allConfigured = hasAnthropicKey && hasClerkPublicKey && hasClerkSecretKey;
 
     return NextResponse.json({
-      status: 'ok',
-      ollamaRunning: true,
-      modelConfigured: MODEL_NAME,
-      modelAvailable: hasModel,
-      availableModels: models.map((m: any) => m.name),
+      status: allConfigured ? 'ok' : 'warning',
+      services: {
+        anthropic: hasAnthropicKey ? 'configured' : 'missing',
+        clerk: (hasClerkPublicKey && hasClerkSecretKey) ? 'configured' : 'missing',
+      },
+      message: allConfigured 
+        ? 'All services configured' 
+        : 'Some environment variables are missing',
     });
   } catch (error) {
     return NextResponse.json({
       status: 'error',
       message: error instanceof Error ? error.message : 'Unknown error',
-      ollamaRunning: false,
     }, { status: 500 });
   }
 }
